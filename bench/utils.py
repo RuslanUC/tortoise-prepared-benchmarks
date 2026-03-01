@@ -30,7 +30,7 @@ def atomic_rollback(connection_name: str | None = None) -> Callable[[F], F]:
 
 @atomic_rollback()
 async def run_test(
-        loopstr: str, test_name: str, total_iters: int, concurrent: int,
+        loopstr: str, tests_name: str, test_name: str, total_iters: int, concurrent: int,
         prepare_func: Callable[..., Awaitable[T]], test_func: Callable[[T, int], Awaitable[...]],
 ) -> None:
     data = await prepare_func()
@@ -41,4 +41,4 @@ async def run_test(
 
     now = time.time()
 
-    print(f"Tortoise ORM{loopstr}, {test_name}: Rows/sec: {total_iters / (now - start): 10.2f}")
+    print(f"{tests_name}{loopstr}, {test_name}: Rows/sec: {total_iters / (now - start): 10.2f}")

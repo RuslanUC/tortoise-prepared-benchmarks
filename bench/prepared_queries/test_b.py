@@ -4,6 +4,7 @@ from tortoise.parameter import Parameter
 
 from bench.common.prepare_b import prepare_test, LEVEL_CHOICE
 from bench.models import JournalSmall
+from bench.prepared_queries import NAME
 from bench.utils import run_test
 
 
@@ -19,6 +20,7 @@ async def _runtest(ids: tuple[int, int], count: int):
 async def runtest(loopstr: str, total_iters: int, concurrent: int) -> None:
     await run_test(
         loopstr=loopstr,
+        tests_name=NAME,
         test_name="B",
         total_iters=total_iters,
         concurrent=concurrent,

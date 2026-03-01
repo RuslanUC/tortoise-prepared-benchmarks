@@ -1,0 +1,1 @@
+NAME = "Regular Queries"

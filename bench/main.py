@@ -2,6 +2,8 @@
 import os
 import random
 import sys
+from argparse import ArgumentParser
+from typing import Literal
 
 try:
     concurrents = int(os.environ.get("CONCURRENTS", "10"))
@@ -71,11 +73,12 @@ async def create_db():
     await Tortoise.generate_schemas()
 
 
-async def run_benchmarks_regular(random_state: tuple[int, ...] | None = None) -> None:
+async def run_benchmarks_regular(random_state: tuple[int, ...] | None = None, print_header: bool = False) -> None:
     if random_state is not None:
         random.setstate(random_state)
 
-    print("Regular queries:")
+    if print_header:
+        print("Regular queries:")
 
     await reg_test_a.runtest(loopstr, total_iterations, concurrents)
     await reg_test_b.runtest(loopstr, total_iterations, concurrents)
@@ -86,11 +89,12 @@ async def run_benchmarks_regular(random_state: tuple[int, ...] | None = None) ->
     await reg_test_g.runtest(loopstr, total_iterations, concurrents)
 
 
-async def run_benchmarks_prepared(random_state: tuple[int, ...] | None = None) -> None:
+async def run_benchmarks_prepared(random_state: tuple[int, ...] | None = None, print_header: bool = False) -> None:
     if random_state is not None:
         random.setstate(random_state)
 
-    print("Prepared queries:")
+    if print_header:
+        print("Prepared queries:")
 
     await pre_test_a.runtest(loopstr, total_iterations, concurrents)
     await pre_test_b.runtest(loopstr, total_iterations, concurrents)
@@ -101,16 +105,24 @@ async def run_benchmarks_prepared(random_state: tuple[int, ...] | None = None) -
     await pre_test_g.runtest(loopstr, total_iterations, concurrents)
 
 
-async def run_benchmarks():
+async def run_benchmarks(tests: list[Literal["regular", "prepared"]]):
     await create_db()
 
     random_state = random.getstate()
-    await run_benchmarks_regular(random_state)
-    await run_benchmarks_prepared(random_state)
+    if "regular" in tests:
+        await run_benchmarks_regular(random_state, len(tests) > 1)
+    if "prepared" in tests:
+        await run_benchmarks_prepared(random_state, len(tests) > 1)
 
 
 def main() -> None:
-    run_async(run_benchmarks())
+    available_tests = ("regular", "prepared")
+
+    parser = ArgumentParser()
+    parser.add_argument("tests", nargs="*", default=list(available_tests), choices=available_tests)
+    args = parser.parse_args()
+
+    run_async(run_benchmarks(args.tests))
 
 
 if __name__ == "__main__":
