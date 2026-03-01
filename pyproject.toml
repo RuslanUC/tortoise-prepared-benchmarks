@@ -1,0 +1,11 @@
+[project]
+name = "tortoise-prepared-benchmarks"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "tortoise-orm[accel]",
+]
+
+[tool.uv.sources]
+tortoise-orm = { git = "https://github.com/RuslanUC/tortoise-orm.git", rev = "feat/add-prepared-parametrized-queries" }
