@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import random
 import sys
 
 try:
@@ -23,7 +24,7 @@ if os.environ.get("UVLOOP", ""):
     try:
         import uvloop
     except ImportError:
-        pass
+        uvloop = None
     else:
         asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
@@ -43,12 +44,16 @@ from .regular_queries import test_b as reg_test_b
 from .regular_queries import test_c as reg_test_c
 from .regular_queries import test_d as reg_test_d
 from .regular_queries import test_e as reg_test_e
+from .regular_queries import test_f as reg_test_f
+from .regular_queries import test_g as reg_test_g
 
 from .prepared_queries import test_a as pre_test_a
 from .prepared_queries import test_b as pre_test_b
 from .prepared_queries import test_c as pre_test_c
 from .prepared_queries import test_d as pre_test_d
 from .prepared_queries import test_e as pre_test_e
+from .prepared_queries import test_f as pre_test_f
+from .prepared_queries import test_g as pre_test_g
 
 from tortoise import Tortoise, run_async
 
@@ -66,28 +71,42 @@ async def create_db():
     await Tortoise.generate_schemas()
 
 
-async def run_benchmarks_regular() -> None:
+async def run_benchmarks_regular(random_state: tuple[int, ...] | None = None) -> None:
+    if random_state is not None:
+        random.setstate(random_state)
+
     print("Regular queries:")
+
     await reg_test_a.runtest(loopstr, total_iterations, concurrents)
     await reg_test_b.runtest(loopstr, total_iterations, concurrents)
     await reg_test_c.runtest(loopstr, total_iterations, concurrents)
     await reg_test_d.runtest(loopstr, total_iterations, concurrents)
     await reg_test_e.runtest(loopstr, total_iterations, concurrents)
+    await reg_test_f.runtest(loopstr, total_iterations, concurrents)
+    await reg_test_g.runtest(loopstr, total_iterations, concurrents)
 
 
-async def run_benchmarks_prepared() -> None:
+async def run_benchmarks_prepared(random_state: tuple[int, ...] | None = None) -> None:
+    if random_state is not None:
+        random.setstate(random_state)
+
     print("Prepared queries:")
+
     await pre_test_a.runtest(loopstr, total_iterations, concurrents)
     await pre_test_b.runtest(loopstr, total_iterations, concurrents)
     await pre_test_c.runtest(loopstr, total_iterations, concurrents)
     await pre_test_d.runtest(loopstr, total_iterations, concurrents)
     await pre_test_e.runtest(loopstr, total_iterations, concurrents)
+    await pre_test_f.runtest(loopstr, total_iterations, concurrents)
+    await pre_test_g.runtest(loopstr, total_iterations, concurrents)
 
 
 async def run_benchmarks():
     await create_db()
-    await run_benchmarks_regular()
-    await run_benchmarks_prepared()
+
+    random_state = random.getstate()
+    await run_benchmarks_regular(random_state)
+    await run_benchmarks_prepared(random_state)
 
 
 def main() -> None:

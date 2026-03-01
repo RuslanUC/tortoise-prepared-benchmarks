@@ -77,19 +77,19 @@ class JournalBig4Base(Model):
         abstract = True
 
 
-class JournalBig1(JournalBig1Base):
+class JournalBig1(JournalSmallBase, JournalBig1Base):
     ...
 
 
-class JournalBig2(JournalBig2Base):
+class JournalBig2(JournalSmallBase, JournalBig2Base):
     ...
 
 
-class JournalBig3(JournalBig3Base):
+class JournalBig3(JournalSmallBase, JournalBig3Base):
     ...
 
 
-class JournalBig4(JournalBig4Base):
+class JournalBig4(JournalSmallBase, JournalBig4Base):
     ...
 
 
@@ -99,6 +99,6 @@ class JournalBig(JournalSmallBase, JournalBig1Base, JournalBig2Base, JournalBig3
 
 class FkToJournalBigs(Model):
     journal1: JournalBig1 = fields.ForeignKeyField("models.JournalBig1")
-    journal2: JournalBig2 = fields.ForeignKeyField("models.JournalBig2")
+    journal2: JournalBig2 = fields.ForeignKeyField("models.JournalBig2", null=True)
     journal3: JournalBig3 = fields.ForeignKeyField("models.JournalBig3")
-    journal4: JournalBig4 = fields.ForeignKeyField("models.JournalBig4")
+    journal4: JournalBig4 = fields.ForeignKeyField("models.JournalBig4", null=True)
