@@ -13,7 +13,7 @@ async def _runtest(all_ids: list[int], count: int):
 async def runtest(loopstr: str, total_iters: int, concurrent: int) -> None:
     await run_test(
         loopstr=loopstr,
-        test_name="C",
+        test_name="D",
         total_iters=total_iters,
         concurrent=concurrent,
         prepare_func=prepare_test,
