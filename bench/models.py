@@ -21,7 +21,7 @@ class JournalSmallFk(JournalSmallBase):
     related = fields.ManyToManyField("models.JournalSmallFk", related_name="related_from")
 
 
-class JournalBig(JournalSmallBase):
+class JournalBig1Base(Model):
     col_float1 = fields.FloatField(default=2.2)
     col_smallint1 = fields.SmallIntField(default=2)
     col_int1 = fields.IntField(default=2000000)
@@ -31,6 +31,11 @@ class JournalBig(JournalSmallBase):
     col_decimal1 = fields.DecimalField(12, 8, default=Decimal("2.2"))
     col_json1 = fields.JSONField(default={"a": 1, "b": "b", "c": [2], "d": {"e": 3}, "f": True})
 
+    class Meta:
+        abstract = True
+
+
+class JournalBig2Base(Model):
     col_float2 = fields.FloatField(null=True)
     col_smallint2 = fields.SmallIntField(null=True)
     col_int2 = fields.IntField(null=True)
@@ -40,6 +45,11 @@ class JournalBig(JournalSmallBase):
     col_decimal2 = fields.DecimalField(12, 8, null=True)
     col_json2 = fields.JSONField(null=True)
 
+    class Meta:
+        abstract = True
+
+
+class JournalBig3Base(Model):
     col_float3 = fields.FloatField(default=2.2)
     col_smallint3 = fields.SmallIntField(default=2)
     col_int3 = fields.IntField(default=2000000)
@@ -49,6 +59,11 @@ class JournalBig(JournalSmallBase):
     col_decimal3 = fields.DecimalField(12, 8, default=Decimal("2.2"))
     col_json3 = fields.JSONField(default={"a": 1, "b": "b", "c": [2], "d": {"e": 3}, "f": True})
 
+    class Meta:
+        abstract = True
+
+
+class JournalBig4Base(Model):
     col_float4 = fields.FloatField(null=True)
     col_smallint4 = fields.SmallIntField(null=True)
     col_int4 = fields.IntField(null=True)
@@ -57,3 +72,33 @@ class JournalBig(JournalSmallBase):
     col_text4 = fields.TextField(null=True)
     col_decimal4 = fields.DecimalField(12, 8, null=True)
     col_json4 = fields.JSONField(null=True)
+
+    class Meta:
+        abstract = True
+
+
+class JournalBig1(JournalBig1Base):
+    ...
+
+
+class JournalBig2(JournalBig2Base):
+    ...
+
+
+class JournalBig3(JournalBig3Base):
+    ...
+
+
+class JournalBig4(JournalBig4Base):
+    ...
+
+
+class JournalBig(JournalSmallBase, JournalBig1Base, JournalBig2Base, JournalBig3Base, JournalBig4Base):
+    ...
+
+
+class FkToJournalBigs(Model):
+    journal1: JournalBig1 = fields.ForeignKeyField("models.JournalBig1")
+    journal2: JournalBig2 = fields.ForeignKeyField("models.JournalBig2")
+    journal3: JournalBig3 = fields.ForeignKeyField("models.JournalBig3")
+    journal4: JournalBig4 = fields.ForeignKeyField("models.JournalBig4")

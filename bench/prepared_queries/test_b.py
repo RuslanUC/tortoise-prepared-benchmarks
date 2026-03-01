@@ -2,7 +2,7 @@ from random import choice
 
 from tortoise.parameter import Parameter
 
-from bench.common.prepare_a import prepare_test, LEVEL_CHOICE
+from bench.common.prepare_b import prepare_test, LEVEL_CHOICE
 from bench.models import JournalSmall
 from bench.utils import run_test
 

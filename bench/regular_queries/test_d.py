@@ -1,21 +1,19 @@
 from random import choice
 
-from bench.common.prepare_b import prepare_test, LEVEL_CHOICE
-from bench.models import JournalSmall
+from bench.common.prepare_d import prepare_test
+from bench.models import JournalSmallFk
 from bench.utils import run_test
 
 
-async def _runtest(ids: tuple[int, int], count: int):
-    min_id, max_id = ids
-    mid_id = min_id + (max_id - min_id) // 2
+async def _runtest(all_ids: list[int], count: int):
     for i in range(count):
-        await JournalSmall.filter(id__gte=mid_id, level=choice(LEVEL_CHOICE))
+        await JournalSmallFk.get(id=choice(all_ids)).select_related("parent")
 
 
 async def runtest(loopstr: str, total_iters: int, concurrent: int) -> None:
     await run_test(
         loopstr=loopstr,
-        test_name="B",
+        test_name="C",
         total_iters=total_iters,
         concurrent=concurrent,
         prepare_func=prepare_test,

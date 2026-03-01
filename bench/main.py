@@ -40,9 +40,15 @@ else:
 
 from .regular_queries import test_a as reg_test_a
 from .regular_queries import test_b as reg_test_b
+from .regular_queries import test_c as reg_test_c
+from .regular_queries import test_d as reg_test_d
+from .regular_queries import test_e as reg_test_e
 
 from .prepared_queries import test_a as pre_test_a
 from .prepared_queries import test_b as pre_test_b
+from .prepared_queries import test_c as pre_test_c
+from .prepared_queries import test_d as pre_test_d
+from .prepared_queries import test_e as pre_test_e
 
 from tortoise import Tortoise, run_async
 
@@ -64,12 +70,18 @@ async def run_benchmarks_regular() -> None:
     print("Regular queries:")
     await reg_test_a.runtest(loopstr, total_iterations, concurrents)
     await reg_test_b.runtest(loopstr, total_iterations, concurrents)
+    await reg_test_c.runtest(loopstr, total_iterations, concurrents)
+    await reg_test_d.runtest(loopstr, total_iterations, concurrents)
+    await reg_test_e.runtest(loopstr, total_iterations, concurrents)
 
 
 async def run_benchmarks_prepared() -> None:
     print("Prepared queries:")
     await pre_test_a.runtest(loopstr, total_iterations, concurrents)
     await pre_test_b.runtest(loopstr, total_iterations, concurrents)
+    await pre_test_c.runtest(loopstr, total_iterations, concurrents)
+    await pre_test_d.runtest(loopstr, total_iterations, concurrents)
+    await pre_test_e.runtest(loopstr, total_iterations, concurrents)
 
 
 async def run_benchmarks():

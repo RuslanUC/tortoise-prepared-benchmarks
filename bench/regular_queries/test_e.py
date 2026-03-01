@@ -1,0 +1,27 @@
+from random import choice, choices, randint
+
+from tortoise.expressions import Q
+
+from bench.common.prepare_e import prepare_test, LEVEL_CHOICE
+from bench.models import JournalBig
+from bench.utils import run_test
+
+
+async def _runtest(all_ids: list[int], count: int):
+    for i in range(count):
+        await JournalBig.filter(
+            Q(level=choice(LEVEL_CHOICE), id__in=choices(LEVEL_CHOICE, k=randint(5, 15)))
+            | Q(level__in=choices(LEVEL_CHOICE, k=2), id__gt=all_ids[int(len(all_ids) * 0.9)])
+            | Q(col_int3__gte=1000, col_int3__lte=10000)
+        ).order_by("id").first()
+
+
+async def runtest(loopstr: str, total_iters: int, concurrent: int) -> None:
+    await run_test(
+        loopstr=loopstr,
+        test_name="E",
+        total_iters=total_iters,
+        concurrent=concurrent,
+        prepare_func=prepare_test,
+        test_func=_runtest,
+    )
