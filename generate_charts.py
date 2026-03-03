@@ -168,7 +168,7 @@ def main():
         },
     }
 
-    test_names = ["Test 1"]
+    test_names = ["Test"]
 
     for db_key, db_info in databases.items():
         print(f"\n=== {db_info['label']} ===")

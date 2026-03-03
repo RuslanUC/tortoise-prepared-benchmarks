@@ -119,7 +119,7 @@ def main() -> None:
     available_tests = ("regular", "prepared")
 
     parser = ArgumentParser()
-    parser.add_argument("tests", nargs="*", default=list(available_tests), choices=available_tests)
+    parser.add_argument("tests", nargs="*", default=available_tests, choices=[*available_tests, available_tests])
     args = parser.parse_args()
 
     run_async(run_benchmarks(args.tests))
