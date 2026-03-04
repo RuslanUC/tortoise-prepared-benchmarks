@@ -17,6 +17,6 @@ uv run -m bench prepared >>/tmp/sqlite_outfile1
 uv run generate_charts.py
 ```
 
-Benchmark results for [bf411ee](https://github.com/RuslanUC/tortoise-orm/commit/bf411ee206bfa1262d523c11ae314ec55b3a8eef):
+Benchmark results for [69311e1](https://github.com/RuslanUC/tortoise-orm/commit/69311e12a415b29bcbc58ea901479f272800ec0a):
 ![](images/sqlite_test1.png)
-
+![](images/pg_test1.png)

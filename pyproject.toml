@@ -5,7 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.11"
 dependencies = [
     "matplotlib>=3.10.8",
-    "tortoise-orm[accel]",
+    "tortoise-orm[accel,asyncpg]",
 ]
 
 [tool.uv.sources]

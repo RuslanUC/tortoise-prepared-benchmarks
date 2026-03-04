@@ -154,10 +154,10 @@ def main():
     os.makedirs(img_dir, exist_ok=True)
 
     databases = {
-        # "pg": {
-        #     "label": "PostgreSQL 17",
-        #     "files": ["/tmp/pg_outfile1"],
-        # },
+        "pg": {
+            "label": "PostgreSQL 14",
+            "files": ["/tmp/pg_outfile1"],
+        },
         # "mysql": {
         #     "label": "MySQL 8",
         #     "files": ["/tmp/mysql_outfile1"],
