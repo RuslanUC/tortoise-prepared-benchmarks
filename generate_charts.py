@@ -158,10 +158,10 @@ def main():
             "label": "PostgreSQL 14",
             "files": ["/tmp/pg_outfile1"],
         },
-        # "mysql": {
-        #     "label": "MySQL 8",
-        #     "files": ["/tmp/mysql_outfile1"],
-        # },
+        "mysql": {
+            "label": "MySQL 8",
+            "files": ["/tmp/mysql_outfile1"],
+        },
         "sqlite": {
             "label": "SQLite",
             "files": ["/tmp/sqlite_outfile1"],

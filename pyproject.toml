@@ -4,8 +4,9 @@ version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.11"
 dependencies = [
+    "cryptography>=46.0.5",
     "matplotlib>=3.10.8",
-    "tortoise-orm[accel,asyncpg]",
+    "tortoise-orm[accel,asyncmy,asyncpg]",
 ]
 
 [tool.uv.sources]
