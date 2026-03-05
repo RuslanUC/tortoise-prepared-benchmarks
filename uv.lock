@@ -877,7 +877,7 @@ wheels = [
 [[package]]
 name = "tortoise-orm"
 version = "1.1.5"
-source = { git = "https://github.com/RuslanUC/tortoise-orm.git?rev=feat%2Fadd-prepared-parametrized-queries#165522d99c68413e35465f2c124ffc4aace8276a" }
+source = { git = "https://github.com/RuslanUC/tortoise-orm.git?rev=feat%2Fadd-prepared-parametrized-queries#ebd33cbe56335afd6e42cb9cd80f89076afba558" }
 dependencies = [
     { name = "aiosqlite" },
     { name = "anyio" },

@@ -4,15 +4,15 @@ from tortoise.parameter import Parameter
 
 from bench.common.prepare_d import prepare_test
 from bench.models import JournalSmallFk
-from bench.prepared_queries import NAME
+from bench.compiled_queries import NAME
 from bench.utils import run_test
 
 
 async def _runtest(all_ids: list[int], count: int):
     for i in range(count):
-        await JournalSmallFk.prepare_sql("prep_test_d").get(
+        await JournalSmallFk.get(
             id=Parameter("search_id"),
-        ).select_related("parent").prepared().execute(search_id=choice(all_ids))
+        ).select_related("parent").compile("prep_test_d").execute(search_id=choice(all_ids))
 
 
 async def runtest(loopstr: str, total_iters: int, concurrent: int) -> None:

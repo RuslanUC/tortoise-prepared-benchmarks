@@ -25,19 +25,19 @@ echo "Running benchmarks for sqlite..."
 
 rm -f "$SQLITE_OUTFILE"
 UVLOOP=1 uv run -m bench regular | tee -a "$SQLITE_OUTFILE"
-UVLOOP=1 uv run -m bench prepared | tee -a "$SQLITE_OUTFILE"
+UVLOOP=1 uv run -m bench compiled | tee -a "$SQLITE_OUTFILE"
 
 echo "Running benchmarks for mysql..."
 
 rm -f "$MYSQL_OUTFILE"
 UVLOOP=1 DBTYPE=mysql PASSWORD=123456 uv run -m bench regular | tee -a "$MYSQL_OUTFILE"
-UVLOOP=1 DBTYPE=mysql PASSWORD=123456 uv run -m bench prepared | tee -a "$MYSQL_OUTFILE"
+UVLOOP=1 DBTYPE=mysql PASSWORD=123456 uv run -m bench compiled | tee -a "$MYSQL_OUTFILE"
 
 echo "Running benchmarks for postgres..."
 
 rm -f "$POSTGRES_OUTFILE"
 UVLOOP=1 DBTYPE=postgres PASSWORD=123456 uv run -m bench regular | tee -a "$POSTGRES_OUTFILE"
-UVLOOP=1 DBTYPE=postgres PASSWORD=123456 uv run -m bench prepared | tee -a "$POSTGRES_OUTFILE"
+UVLOOP=1 DBTYPE=postgres PASSWORD=123456 uv run -m bench compiled | tee -a "$POSTGRES_OUTFILE"
 
 rm -f images/sqlite_test1.png images/mysql_test1.png images/pg_test1.png
 

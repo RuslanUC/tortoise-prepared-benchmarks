@@ -25,10 +25,10 @@ OPERATION_LABELS = {
 
 ORM_COLORS = {
     "Regular Queries": "#2ecc71",
-    "Prepared Queries": "#3498db",
+    "Compiled Queries": "#3498db",
 }
 
-ORM_ORDER = ["Regular Queries", "Prepared Queries"]
+ORM_ORDER = ["Regular Queries", "Compiled Queries"]
 OP_ORDER = list("ABCDEFG")
 
 

@@ -49,13 +49,13 @@ from .regular_queries import test_e as reg_test_e
 from .regular_queries import test_f as reg_test_f
 from .regular_queries import test_g as reg_test_g
 
-from .prepared_queries import test_a as pre_test_a
-from .prepared_queries import test_b as pre_test_b
-from .prepared_queries import test_c as pre_test_c
-from .prepared_queries import test_d as pre_test_d
-from .prepared_queries import test_e as pre_test_e
-from .prepared_queries import test_f as pre_test_f
-from .prepared_queries import test_g as pre_test_g
+from .compiled_queries import test_a as comp_test_a
+from .compiled_queries import test_b as comp_test_b
+from .compiled_queries import test_c as comp_test_c
+from .compiled_queries import test_d as comp_test_d
+from .compiled_queries import test_e as comp_test_e
+from .compiled_queries import test_f as comp_test_f
+from .compiled_queries import test_g as comp_test_g
 
 from tortoise import Tortoise, run_async
 
@@ -89,34 +89,34 @@ async def run_benchmarks_regular(random_state: tuple[int, ...] | None = None, pr
     await reg_test_g.runtest(loopstr, total_iterations, concurrents)
 
 
-async def run_benchmarks_prepared(random_state: tuple[int, ...] | None = None, print_header: bool = False) -> None:
+async def run_benchmarks_compiled(random_state: tuple[int, ...] | None = None, print_header: bool = False) -> None:
     if random_state is not None:
         random.setstate(random_state)
 
     if print_header:
         print("Prepared queries:")
 
-    await pre_test_a.runtest(loopstr, total_iterations, concurrents)
-    await pre_test_b.runtest(loopstr, total_iterations, concurrents)
-    await pre_test_c.runtest(loopstr, total_iterations, concurrents)
-    await pre_test_d.runtest(loopstr, total_iterations, concurrents)
-    await pre_test_e.runtest(loopstr, total_iterations, concurrents)
-    await pre_test_f.runtest(loopstr, total_iterations, concurrents)
-    await pre_test_g.runtest(loopstr, total_iterations, concurrents)
+    await comp_test_a.runtest(loopstr, total_iterations, concurrents)
+    await comp_test_b.runtest(loopstr, total_iterations, concurrents)
+    await comp_test_c.runtest(loopstr, total_iterations, concurrents)
+    await comp_test_d.runtest(loopstr, total_iterations, concurrents)
+    await comp_test_e.runtest(loopstr, total_iterations, concurrents)
+    await comp_test_f.runtest(loopstr, total_iterations, concurrents)
+    await comp_test_g.runtest(loopstr, total_iterations, concurrents)
 
 
-async def run_benchmarks(tests: list[Literal["regular", "prepared"]]):
+async def run_benchmarks(tests: list[Literal["regular", "compiled"]]):
     await create_db()
 
     random_state = random.getstate()
     if "regular" in tests:
         await run_benchmarks_regular(random_state, len(tests) > 1)
-    if "prepared" in tests:
-        await run_benchmarks_prepared(random_state, len(tests) > 1)
+    if "compiled" in tests:
+        await run_benchmarks_compiled(random_state, len(tests) > 1)
 
 
 def main() -> None:
-    available_tests = ("regular", "prepared")
+    available_tests = ("regular", "compiled")
 
     parser = ArgumentParser()
     parser.add_argument("tests", nargs="*", default=available_tests, choices=[*available_tests, available_tests])
