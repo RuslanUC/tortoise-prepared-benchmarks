@@ -877,7 +877,7 @@ wheels = [
 [[package]]
 name = "tortoise-orm"
 version = "1.1.5"
-source = { git = "https://github.com/RuslanUC/tortoise-orm.git?rev=feat%2Fadd-prepared-parametrized-queries#ebd33cbe56335afd6e42cb9cd80f89076afba558" }
+source = { git = "https://github.com/RuslanUC/tortoise-orm?rev=feat%2Fadd-prepared-parametrized-queries#ebd33cbe56335afd6e42cb9cd80f89076afba558" }
 dependencies = [
     { name = "aiosqlite" },
     { name = "anyio" },
@@ -912,7 +912,7 @@ dependencies = [
 requires-dist = [
     { name = "cryptography", specifier = ">=46.0.5" },
     { name = "matplotlib", specifier = ">=3.10.8" },
-    { name = "tortoise-orm", extras = ["accel", "asyncmy", "asyncpg"], git = "https://github.com/RuslanUC/tortoise-orm.git?rev=feat%2Fadd-prepared-parametrized-queries" },
+    { name = "tortoise-orm", extras = ["accel", "asyncmy", "asyncpg"], git = "https://github.com/RuslanUC/tortoise-orm?rev=feat%2Fadd-prepared-parametrized-queries" },
 ]
 
 [[package]]

@@ -8,6 +8,9 @@ SQLITE_OUTFILE="/tmp/sqlite_outfile1"
 MYSQL_OUTFILE="/tmp/mysql_outfile1"
 POSTGRES_OUTFILE="/tmp/pg_outfile1"
 
+export UVLOOP=1
+export PASSWORD=123456
+
 echo "Will remove '$POSTGRES_CONTAINER' and '$MYSQL_CONTAINER' docker containers! Type 'yes' to continue:"
 read yesorno
 if [ "$yesorno" != "yes" ]; then
@@ -24,20 +27,20 @@ uv sync || exit 1
 echo "Running benchmarks for sqlite..."
 
 rm -f "$SQLITE_OUTFILE"
-UVLOOP=1 uv run -m bench regular | tee -a "$SQLITE_OUTFILE"
-UVLOOP=1 uv run -m bench compiled | tee -a "$SQLITE_OUTFILE"
+uv run -m bench regular | tee -a "$SQLITE_OUTFILE"
+uv run -m bench compiled | tee -a "$SQLITE_OUTFILE"
 
 echo "Running benchmarks for mysql..."
 
 rm -f "$MYSQL_OUTFILE"
-UVLOOP=1 DBTYPE=mysql PASSWORD=123456 uv run -m bench regular | tee -a "$MYSQL_OUTFILE"
-UVLOOP=1 DBTYPE=mysql PASSWORD=123456 uv run -m bench compiled | tee -a "$MYSQL_OUTFILE"
+DBTYPE=mysql uv run -m bench regular | tee -a "$MYSQL_OUTFILE"
+DBTYPE=mysql uv run -m bench compiled | tee -a "$MYSQL_OUTFILE"
 
 echo "Running benchmarks for postgres..."
 
 rm -f "$POSTGRES_OUTFILE"
-UVLOOP=1 DBTYPE=postgres PASSWORD=123456 uv run -m bench regular | tee -a "$POSTGRES_OUTFILE"
-UVLOOP=1 DBTYPE=postgres PASSWORD=123456 uv run -m bench compiled | tee -a "$POSTGRES_OUTFILE"
+DBTYPE=postgres uv run -m bench regular | tee -a "$POSTGRES_OUTFILE"
+DBTYPE=postgres uv run -m bench compiled | tee -a "$POSTGRES_OUTFILE"
 
 rm -f images/sqlite_test1.png images/mysql_test1.png images/pg_test1.png
 

@@ -10,4 +10,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-tortoise-orm = { git = "https://github.com/RuslanUC/tortoise-orm.git", rev = "feat/add-prepared-parametrized-queries" }
+tortoise-orm = { git = "https://github.com/RuslanUC/tortoise-orm", rev = "feat/add-prepared-parametrized-queries" }
